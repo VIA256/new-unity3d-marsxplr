@@ -1,16 +1,43 @@
 fileFormatVersion: 2
-guid: 8134c2064ee1c45f88fab5051a296657
+guid: b62b6b8c6692b814b80b3c49a50f92f5
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Mesh1_Model
-    400000: //RootNode
-    400002: Mesh1_Model
-    2300000: Mesh1_Model
-    3300000: Mesh1_Model
-    4300000: Mesh1_Model
-    11100000: //RootNode
+    100000: Body
+    100002: //RootNode
+    100004: Cockpit
+    100006: Collider
+    100008: Detailed
+    100010: Headlights
+    100012: Simple
+    100014: Wing
+    400000: Body
+    400002: //RootNode
+    400004: Cockpit
+    400006: Collider
+    400008: Detailed
+    400010: Headlights
+    400012: Simple
+    400014: Wing
+    2300000: Body
+    2300002: Cockpit
+    2300004: Collider
+    2300006: Headlights
+    2300008: Simple
+    2300010: Wing
+    3300000: Body
+    3300002: Cockpit
+    3300004: Collider
+    3300006: Headlights
+    3300008: Simple
+    3300010: Wing
+    4300000: Simple
+    4300002: Collider
+    4300004: Wing
+    4300006: Cockpit
+    4300008: Headlights
+    4300010: Body
+    9500000: //RootNode
   materials:
     importMaterials: 0
     materialName: 0
@@ -20,7 +47,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 0
+    animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -30,8 +57,8 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .100000001
-    meshCompression: 0
+    globalScale: .0209999997
+    meshCompression: 3
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
@@ -44,9 +71,9 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
   tangentSpace:
-    normalSmoothAngle: 60
+    normalSmoothAngle: 107
     splitTangentsAcrossUV: 0
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 1
   importAnimation: 1
   copyAvatar: 0
@@ -62,6 +89,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   additionalBone: 0
   userData: 

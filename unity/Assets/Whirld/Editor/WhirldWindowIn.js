@@ -72,7 +72,7 @@ class WhirldWindowIn extends EditorWindow {
 		
 		//Verify Successful Download
 		if (www.error != null) {
-			Debug.Log("Error Downloading World: " + url);
+			Debug.Log("Error Downloading World: " + url + " (" + www.error + ")");
 			return false;
 		}
 		

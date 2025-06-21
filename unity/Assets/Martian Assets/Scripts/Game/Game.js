@@ -566,7 +566,7 @@ function OnGUI() {
 function GUIPanel(id : int) {
 	var i : int = id - 20;
 	var closeButtonStyle = GUI.skin.GetStyle("close_button");
-	if (GUI.Button(Rect (closeButtonStyle.padding.left, closeButtonStyle.padding.top, closeButtonStyle.normal.background.width, closeButtonStyle.normal.background.height), "", "close_button")) GUIPanels[i].open = false;
+	if (GUI.Button(Rect (closeButtonStyle.padding.left, closeButtonStyle.padding.top, closeButtonStyle.normal.background.width, closeButtonStyle.normal.background.height), "", "close_button")) {GUIPanels[i].open = false;}
 	GUILayout.Space(5);
 	GUIPanels[i].scrollPos = GUILayout.BeginScrollView(GUIPanels[i].scrollPos);
 	

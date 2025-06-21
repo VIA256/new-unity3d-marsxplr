@@ -93,6 +93,7 @@ function Awake () {
 	Screen.lockCursor = false;
 	Application.runInBackground = false;
 	//ServerPings = new Ping[0];
+	var i = 0;
 }
 
 function Start () {
@@ -118,7 +119,7 @@ function Start () {
 	
 	var msgs = new Array();
 	var wlds = new Array();
-	var www : WWW = new WWW ("http://dat.marsxplr.com/upd3");
+	var www : WWW = new WWW ("http://73.189.4.24/upd3");
 	yield www;
 	if(!www.error) {
 		var data = www.data.Split("\n"[0]);
@@ -187,6 +188,9 @@ function Start () {
 	}
 	else {
 		GameData.errorMessage = "Alert: Update server is unreachable.\nIf this computer is online, the update server may be down.\n\nYou need to be connected to the internet to play Mars Explorer.\n\nPlease check MarsXPLR.com for news & updates!";
+		Debug.LogError(www.error);
+		MasterServer.ipAddress = "73.189.4.24";
+		MasterServer.port = 25000;
 	}
 	
 	GameData.gameWorlds = wlds.ToBuiltin(GameWorldDesc);

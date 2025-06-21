@@ -1,4 +1,4 @@
-static var gameVersion : float = 2.22; //.1
+static var gameVersion : float = 2.3; //.1
 static var serverVersion : float = 0.2;
 static var gameName : String = "marsxplr";
 static var userName : String = "";

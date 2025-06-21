@@ -80,7 +80,8 @@ class WhirldIn extends System.Object {
 				status = WhirldInStatus.WWWError;
 				return;
 			}
-			data = www.data;
+			//AUBSERROR data = www.data;
+			data = www.text;
 		
 		}
 		
@@ -113,7 +114,7 @@ class WhirldIn extends System.Object {
 			//Ignore Newlines and Tabs
 			else if(s == "\n" || s == "\t") continue;
 			
-			else if(s == "{") break;	//Finished reading headers
+			else if(s == "{") { readChr--; break; }	//Finished reading headers
 			else if(s == "[") {			//Beginning new header
 				var n = "";
 				var v = "";
@@ -393,7 +394,8 @@ class WhirldIn extends System.Object {
 			var data : String = new Ionic.Zlib.GZipStream(new System.IO.MemoryStream(), Ionic.Zlib.CompressionMode.Decompress).UncompressString(www.bytes);
 			vS[1] = vS[1].Substring(0, lastDot);
 		}
-		else data = www.data;
+		else data = www.text;
+		//AUBSERROR else data = www.data;
 		
 		threads[thread] = "Generating";
 		
@@ -461,11 +463,13 @@ class WhirldIn extends System.Object {
 						else {
 							threads[thread] = "Initializing " + vS[0] + "";
 							//yield;
-							var meshlib : String[] = www.data.Split("\n"[0]);
+							//AUBSERROR var meshlib : String[] = www.data.Split("\n"[0]);
+							var meshlib : String[] = www.text.Split("\n"[0]);
 							var curMat : Material;
 						    var offset : int = -1;
 						    while(true) {
-						    	offset = www.data.IndexOf("map_Ka", offset + 1);
+						    	//AUBSERROR offset = www.data.IndexOf("map_Ka", offset + 1);
+						    	offset = www.text.IndexOf("map_Ka", offset + 1);
 						    	if(offset == -1) break;
 						    }
 							for (var meshline : String in meshlib) {
@@ -1024,7 +1028,7 @@ class WhirldIn extends System.Object {
 		}
 	}
 	
-	function ReadObject(parent : Transform) {
+	/*function ReadObject(parent : Transform) {
 		var c : String;					//Character
 		var i : int = 0;				//Index of param
 		var n : String = "";			//Param name we are reading data for
@@ -1039,18 +1043,20 @@ class WhirldIn extends System.Object {
 			s = data[readChr];
 			
 			//We just attempted to read past the end of the world data - the world file must have been malformed
-			/*if(s == "") {
-				whirld.info = "Malformed World File";
-				whirld.status = WhirldInStatus.SyntaxError;
-			}*/
+			//if(s == "") {
+			//	whirld.info = "Malformed World File";
+			//	whirld.status = WhirldInStatus.SyntaxError;
+			//}
 			
 			//Ignore spaces
 			if(s == " " || s == "\n" || s == "\t") { };
 			
 			//Name fully read, begin collecting param value(s)
-			else if(s == ":") {
+			else if(s == ";" && n && v) {
 				n = v;
+				Debug.Log("n: " + n);
 				v = "";
+				continue;
 			}
 			
 			//Move to next section of value
@@ -1175,6 +1181,156 @@ class WhirldIn extends System.Object {
 				else n += s;	//Building name
 			}
 			readChr += 1;
+		}
+	}*/
+	
+	/*
+	OBJ:
+		NAME;paramPOS;paramROT;paramSCA
+	param*:
+		*x,*y,*z
+		--or--
+		a	( where *x,*y,*z = a * (1,1,1) )
+	
+	== UTW ================ TREE ==
+	{OBJ}					NAME
+	{OBJ}{OBJ}				NAME, NAME
+	{OBJ{OBJ{...}}			NAME=>{NAME=>{...}}
+	
+	
+	*/
+	/*
+			subject:
+			0		OTHER
+			1		NAME
+			2		POSITION
+			3		ROTATION
+			4		SCALE
+	*/
+	/*TODO: objects of each name are all instances of the first of said name*/
+	var subject : int = 0;
+	var firstbracket = true;
+	function ReadObject(parent : Transform){
+		
+		var object : GameObject = new GameObject();
+		object.name = "";
+		object.transform.parent = parent;
+		
+		var argsused : int = 0;
+		var argstr : String = "";
+		
+		for(; readChr < data.Length; readChr++){
+			s = data[readChr];
+			
+			if(s == '' || s == ' ' || s == '\n') { continue; };
+			
+			if(s == '{'){
+				if(firstbracket){
+					GameObject.Destroy(object);
+					object = parent.gameObject;
+					parent = object.transform.parent;
+					firstbracket = false;
+				}
+				subject = 1;
+				readChr++;
+				ReadObject(object.transform);
+				continue;
+			}
+			
+			if(s == '}'){
+				subject = 0;
+				break;
+			}
+			
+			if(subject == 1){
+				if(s == ';'){
+					subject = 2;
+				} else{
+					object.name += s;
+				}
+			}
+			else if(subject == 2){
+				if(s == ','){
+					if(argsused == 0){
+						object.transform.localPosition.x = parseFloat(argstr);
+					} else if(argsused == 1){
+						object.transform.localPosition.y = parseFloat(argstr);
+					} else if(argsused == 2){
+						object.transform.localPosition.z = parseFloat(argstr);
+					}
+					argsused++;
+					argstr = "";
+				} else if(s == ';'){
+					if(argsused == 0){
+						object.transform.localPosition = Vector3.one * parseFloat(argstr);
+					}
+					argstr = "";
+					argsused = 0;
+					subject = 3;
+				} else{
+					argstr += s;
+				}
+			}
+			else if(subject == 3){
+				if(s == ','){
+					if(argsused == 0){
+						object.transform.rotation.x = parseFloat(argstr);
+					} else if(argsused == 1){
+						object.transform.rotation.y = parseFloat(argstr);
+					} else if(argsused == 2){
+						object.transform.rotation.z = parseFloat(argstr);
+					} else if(argsused == 3){
+						object.transform.rotation.w = parseFloat(argstr);
+					}
+					argsused++;
+					argstr = "";
+				} else if(s == ';'){
+					if(argsused == 0){
+						object.transform.rotation = Quaternion.identity;
+					} else if(argsused == 2){
+						object.transform.rotation = Quaternion.Euler(
+							object.transform.rotation.x,
+							object.transform.rotation.y,
+							object.transform.rotation.z);
+					}
+					argstr = "";
+					argsused = 0;
+					subject = 4;
+				} else{
+					argstr += s;
+				}
+			}
+			else if(subject == 4){
+				if(s == ','){
+					if(argsused == 0){
+						object.transform.localScale.x = parseFloat(argstr);
+					} else if(argsused == 1){
+						object.transform.localScale.y = parseFloat(argstr);
+					} else if(argsused == 2){
+						object.transform.localScale.z = parseFloat(argstr);
+					}
+					argsused++;
+					argstr = "";
+				} else if(s == "{" || s == "}"){
+					if(argsused == 0){
+						object.transform.localScale = Vector3.one * parseFloat(argstr);
+					}
+					argstr = "";
+					argsused = 0;
+					subject = 0;
+					readChr--;
+					
+					if(object.name == "cube"
+						|| object.name == "pyramid"
+						|| object.name == "cone"
+						|| object.name == "mesh"
+					) {
+						TextureObject(object);
+					}
+				} else{
+					argstr += s;
+				}
+			}
 		}
 	}
 	
