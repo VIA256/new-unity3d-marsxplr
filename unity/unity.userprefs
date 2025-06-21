@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Whirld\Core\WhirldIn.js">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Martian Assets\Scripts\Lobby\Lobby.js">
     <Files>
-      <File FileName="Assets\Martian Assets\Scripts\Lobby\Lobby.js" Line="247" Column="433" />
-      <File FileName="Assets\Whirld\Core\WhirldIn.js" Line="1323" Column="9" />
+      <File FileName="Assets\Martian Assets\Scripts\Lobby\Lobby.js" Line="614" Column="13" />
+      <File FileName="Assets\Martian Assets\Scripts\Game\Game.js" Line="1200" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
