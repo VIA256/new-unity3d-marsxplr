@@ -94,10 +94,10 @@
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.9/Editor/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="Ionic.Zlib">
- <HintPath>C:/Users/human/Desktop/building mars/unity3d-marsxplr-master/unity/Assets/Whirld/Lib/Compression/Ionic.Zlib.dll</HintPath>
+ <HintPath>C:/Users/human/Documents/GitHub/new-unity3d-marsxplr/unity/Assets/Whirld/Lib/Compression/Ionic.Zlib.dll</HintPath>
  </Reference>
  <Reference Include="TerrainControllerData">
- <HintPath>C:/Users/human/Desktop/building mars/unity3d-marsxplr-master/unity/Assets/Whirld/ResourceSources/Terrain/TerrainControllerData.dll</HintPath>
+ <HintPath>C:/Users/human/Documents/GitHub/new-unity3d-marsxplr/unity/Assets/Whirld/ResourceSources/Terrain/TerrainControllerData.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
