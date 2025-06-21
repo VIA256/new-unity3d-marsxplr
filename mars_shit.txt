@@ -1,0 +1,5 @@
+- convert all skp files to fbx (if needed)
+
+- assetDoesNotExist:
+	- Assets/Martian Assets/Vehicles/Prefabs/Marker Mesh.obj
+	- Assets/Standard Assets/Editor
